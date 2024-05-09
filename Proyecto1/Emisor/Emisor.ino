@@ -26,7 +26,8 @@ void loop() {
     
     short tmp = (Serial.read() << 8) | (Serial.read());
 
-    data[8] = tmp;
+    data[8] = (byte)(tmp & 0xff);
+    data[9] = (byte)((tmp >> 8) & 0xff);
 
     Serial.readBytes(data + 10, tmp);
 
