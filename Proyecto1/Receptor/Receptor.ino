@@ -23,15 +23,27 @@ void loop() {
   if(softSerial.available() > 1){
     lcd.setCursor(0, 0);
     lcd.print("Recibiendo trama");
-    Serial.readBytes(data, 8);
+
+
+    short id = (Serial.read() << 8) | (Serial.read());
+
+    //Do something with id
+
+    data[0] = (byte)((id >> 8) & 0xff);
+    data[1] = (byte)(id & 0xff );
+    
+    Serial.readBytes(data + 2, 6);
     
     short tmp = (Serial.read() << 8) | (Serial.read());
 
+    data[8] = (byte)((tmp >> 8) & 0xff);
+    data[9] = (byte)(tmp & 0xff );
+
     Serial.readBytes(data + 10, tmp);
 
-    Serial.write(data, 10 + tmp);
-
     //chequeo de CRC
+
+    Serial.write(data, 10 + tmp);
 
     softSerial.write(NEXTPACKET);
 
