@@ -84,30 +84,32 @@ void ceFinit() {
 }
 
 void loop() {
-  ceFinit();
-  if(softSerial.available() > 1){
+  if(softSerial.available()){
     lcd.setCursor(0, 0);
     //lcd.print("Recibiendo trama");
-    lcd.print("Transmisión en  ");
+    lcd.print("Transmisi");
+    lcd.write(byte(0));
+    lcd.print("n     ");
     lcd.setCursor(0, 1);
-    lcd.print("curso...");
+    lcd.print("curso... ");
 
-    data[0] = Serial.read();
-    short id = (Serial.read() << 8) | (Serial.read());
+    data[0] = softSerial.read();
+    short id = (softSerial.read() << 8) | (softSerial.read());
+    lcd.write(id);
     cantidadTramas = id;
 
     data[1] = (byte)((id >> 8) & 0xff);
     data[2] = (byte)(id & 0xff );
     
-    Serial.readBytes(data + 3, 6);
+    softSerial.readBytes(data + 3, 6);
     
-    short tmp = (Serial.read() << 8) | (Serial.read());
+    short tmp = (softSerial.read() << 8) | (softSerial.read());
 
     data[9] = (byte)((tmp >> 8) & 0xff);
     data[10] = (byte)(tmp & 0xff );
 
-    Serial.readBytes(data + 11, tmp);
-    data[11 + tmp + 1] = Serial.read();
+    softSerial.readBytes(data + 11, tmp);
+    data[11 + tmp + 1] = softSerial.read();
 
     //chequeo de CRC
     uint32_t new_crc_number = crc_create(data, tmp);
@@ -129,13 +131,12 @@ void loop() {
 
     }
 
-    
     lcd.setCursor(0, 0);
     lcd.print("Estado de enlace");
     lcd.setCursor(0, 1);
     //If dió error:
-    errores++;
-    lcd.print("ruidoso...");
+    //errores++;
+    //lcd.print("ruidoso...");
 
     //Else
     lcd.write(byte(0));
@@ -155,4 +156,3 @@ void loop() {
     }
 
   }
-  

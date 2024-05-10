@@ -1,29 +1,45 @@
-<circuit version="1.0.0-SR0" rev="1320" stepSize="1000000" stepsPS="1000000" NLsteps="100000" reaStep="1000000" animate="0" >
+<circuit version="1.1.0-SR0" rev="1917" stepSize="1000000" stepsPS="1000000" NLsteps="100000" reaStep="1000000" animate="0" >
 
 <item itemtype="Subcircuit" CircId="Uno-1" mainComp="false" Show_id="true" Show_Val="false" Pos="624,572" rotation="0" hflip="1" vflip="1" label="Uno-1" idLabPos="0,-20" labelrot="0" valLabPos="-16,20" valLabRot="0" Logic_Symbol="false">
-<mainCompProps itemtype="MCU" CircId="1_mega328-109" mainComp="true" Show_id="false" Show_Val="false" Pos="20,20" rotation="0" hflip="1" vflip="1" label="1_mega328-109" idLabPos="0,-20" labelrot="0" valLabPos="-16,20" valLabRot="0" Frequency="16 MHz" Auto_Load="false" Rst_enabled="true" Ext_Osc="true" Wdt_enabled="false" />
+<mainCompProps MainCompId="mega328-109" Frequency="16 MHz" Program="Emisor.hex" Auto_Load="false" saveEepr="true" SerialMon="-1" />
 </item>
 
-<item itemtype="Subcircuit" CircId="Uno-2" mainComp="false" Show_id="true" Show_Val="false" Pos="864,572" rotation="0" hflip="1" vflip="1" label="Uno-2" idLabPos="0,-20" labelrot="0" valLabPos="-16,20" valLabRot="0" Logic_Symbol="false">
-<mainCompProps itemtype="MCU" CircId="2_mega328-109" mainComp="true" Show_id="false" Show_Val="false" Pos="20,20" rotation="0" hflip="1" vflip="1" label="2_mega328-109" idLabPos="0,-20" labelrot="0" valLabPos="-16,20" valLabRot="0" Frequency="16 MHz" Auto_Load="false" Rst_enabled="true" Ext_Osc="true" Wdt_enabled="false" />
+<item itemtype="Subcircuit" CircId="Uno-2" mainComp="false" Show_id="true" Show_Val="false" Pos="864,568" rotation="0" hflip="1" vflip="1" label="Uno-2" idLabPos="0,-20" labelrot="0" valLabPos="-16,20" valLabRot="0" Logic_Symbol="false">
+<mainCompProps MainCompId="mega328-109" Frequency="16 MHz" Program="Receptor.hex" Auto_Load="false" saveEepr="true" SerialMon="-1" />
 </item>
 
-<item itemtype="SerialPort" CircId="SerialPort-3" mainComp="false" Show_id="false" Show_Val="false" Pos="656,484" rotation="0" hflip="1" vflip="1" label="SerialPort-3" idLabPos="-20,-32" labelrot="0" valLabPos="-16,20" valLabRot="0" Port="COM1" Baudrate="9600 _Bauds" DataBits="8 _Bits" StopBits="1 _Bits" />
+<item itemtype="SerialPort" CircId="SerialPort-3" mainComp="false" Show_id="false" Show_Val="false" Pos="548,472" rotation="0" hflip="1" vflip="1" label="SerialPort-3" idLabPos="-20,-32" labelrot="0" valLabPos="-16,20" valLabRot="0" Auto="false" Port="COM3" Baudrate="9600 _Bd" DataBits="8 _bits" StopBits="1 _bits" SerialMon="false" />
 
-<item itemtype="Ground" CircId="Ground-6" mainComp="false" Show_id="false" Show_Val="false" Pos="608,732" rotation="0" hflip="1" vflip="1" label="Ground-6" idLabPos="-16,8" labelrot="0" valLabPos="-16,20" valLabRot="0" />
+<item itemtype="Hd44780" CircId="Hd44780-10" mainComp="false" Show_id="true" Show_Val="false" Pos="868,500" rotation="0" hflip="1" vflip="1" label="Hd44780-10" idLabPos="70,-82" labelrot="0" valLabPos="-16,20" valLabRot="0" Rows="2" Cols="16" />
 
-<item itemtype="Ground" CircId="Ground-8" mainComp="false" Show_id="false" Show_Val="false" Pos="836,732" rotation="0" hflip="1" vflip="1" label="Ground-8" idLabPos="-16,8" labelrot="0" valLabPos="-16,20" valLabRot="0" />
+<item itemtype="SerialPort" CircId="SerialPort-14" mainComp="false" Show_id="false" Show_Val="false" Pos="872,848" rotation="0" hflip="1" vflip="1" label="SerialPort-14" idLabPos="-20,-32" labelrot="0" valLabPos="-16,20" valLabRot="0" Auto="false" Port="COM5" Baudrate="9600 _Bd" DataBits="8 _bits" StopBits="1 _bits" SerialMon="false" />
 
-<item itemtype="Connector" uid="connector-4" startpinid="SerialPort-3-pin1" endpinid="Uno-1-1" pointList="616,492,616,596,632,596" />
+<item itemtype="Ground" CircId="Ground-16" mainComp="false" Show_id="false" Show_Val="false" Pos="1144,584" rotation="0" hflip="1" vflip="1" label="Ground-16" idLabPos="-16,8" labelrot="0" valLabPos="-16,20" valLabRot="0" />
 
-<item itemtype="Connector" uid="connector-5" startpinid="SerialPort-3-pin0" endpinid="Uno-1-0" pointList="616,476,608,476,608,588,632,588" />
+<item itemtype="Connector" uid="connector-4" startpinid="SerialPort-3-pin1" endpinid="Uno-1-1" pointList="508,480,508,596,632,596" />
 
-<item itemtype="Connector" uid="Connector-7" startpinid="Ground-6-Gnd" endpinid="Uno-1-GND2" pointList="608,716,608,708,632,708" />
+<item itemtype="Connector" uid="connector-5" startpinid="SerialPort-3-pin0" endpinid="Uno-1-0" pointList="508,464,508,588,632,588" />
 
-<item itemtype="Connector" uid="Connector-9" startpinid="Ground-8-Gnd" endpinid="Uno-2-GND2" pointList="836,716,836,708,872,708" />
+<item itemtype="Connector" uid="Connector-10" startpinid="Uno-1-8" endpinid="Uno-2-9" pointList="632,660,596,660,596,560,856,560,856,664,872,664" />
 
-<item itemtype="Connector" uid="Connector-10" startpinid="Uno-1-8" endpinid="Uno-2-9" pointList="632,660,596,660,596,560,856,560,856,668,872,668" />
+<item itemtype="Connector" uid="Connector-11" startpinid="Uno-1-9" endpinid="Uno-2-8" pointList="632,668,592,668,592,556,852,556,852,656,872,656" />
 
-<item itemtype="Connector" uid="Connector-11" startpinid="Uno-1-9" endpinid="Uno-2-8" pointList="632,668,592,668,592,556,852,556,852,660,872,660" />
+<item itemtype="Connector" uid="Connector-12" startpinid="Hd44780-10-PinRS" endpinid="Uno-2-12" pointList="884,508,884,688,872,688" />
+
+<item itemtype="Connector" uid="Connector-14" startpinid="Hd44780-10-PinEn" endpinid="Uno-2-11" pointList="900,508,900,680,872,680" />
+
+<item itemtype="Connector" uid="Connector-15" startpinid="Hd44780-10-dataPin4" endpinid="Uno-2-5" pointList="940,508,940,624,872,624" />
+
+<item itemtype="Connector" uid="Connector-16" startpinid="Hd44780-10-dataPin5" endpinid="Uno-2-4" pointList="948,508,948,616,872,616" />
+
+<item itemtype="Connector" uid="Connector-17" startpinid="Hd44780-10-dataPin6" endpinid="Uno-2-3" pointList="956,508,956,608,872,608" />
+
+<item itemtype="Connector" uid="Connector-18" startpinid="Hd44780-10-dataPin7" endpinid="Uno-2-2" pointList="964,508,964,600,872,600" />
+
+<item itemtype="Connector" uid="Connector-19" startpinid="SerialPort-14-pin0" endpinid="Uno-2-0" pointList="832,840,832,584,872,584" />
+
+<item itemtype="Connector" uid="Connector-20" startpinid="SerialPort-14-pin1" endpinid="Uno-2-1" pointList="832,856,832,592,872,592" />
+
+<item itemtype="Connector" uid="Connector-25" startpinid="Ground-16-Gnd" endpinid="Hd44780-10-PinRW" pointList="1144,568,1144,544,892,544,892,508" />
 
 </circuit>
