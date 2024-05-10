@@ -16,17 +16,21 @@ typing = 1
 error = 234
 completed = False
 size = 600
+start = 1
+end = 2
 
 with open("C:/Users/britn/Documents/REDES/Proyecto1/TheBible.txt", "rb") as f:
+
     while (byte := f.read(600)):
         trama = bytearray()
-        #trama = bytearray([count.to_bytes(2, 'big'), typing.to_bytes(1, 'big'), error.to_bytes(4, 'big'), typing.to_bytes(2, 'big'), byte])
+        trama.extend(start.to_bytes(1, 'big'))
         trama.extend(count.to_bytes(2, 'big'))
         trama.extend(typing.to_bytes(1, 'big'))
         trama.extend(error.to_bytes(4, 'big'))
         trama.extend(typing.to_bytes(1, 'big'))
         trama.extend(size.to_bytes(2, 'big'))
         trama.extend(byte)
+        trama.extend(end.to_bytes(1, 'big'))
 
         while (completed == False):
             s.write(trama)
@@ -35,7 +39,7 @@ with open("C:/Users/britn/Documents/REDES/Proyecto1/TheBible.txt", "rb") as f:
         while(s.available() == 0):
           code = s.read()
           if(int.from_bytes(code, "big") == NEXTPACKET):
-            completed = true
+            completed = True
             break
 
         count+=1

@@ -1,5 +1,6 @@
 #include <SoftwareSerial.h>
 #include <LiquidCrystal.h>
+#include <stdint.h>
 
 #define NEXTPACKET 1
 #define RESENDPACKET 2
@@ -9,6 +10,25 @@ SoftwareSerial softSerial(8, 9);  // RX, TX
 
 const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
 LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
+
+uint32_t crc_create(const uint8_t *data, short length) {
+    uint32_t crc = 0xFFFFFFFF;
+    uint32_t polynomial = 0xEDB88320;
+    int total_length = length + 11;
+
+    for (size_t i = 11; i < total_length; ++i) {
+        crc ^= data[i];
+        for (uint8_t j = 0; j < 8; ++j) {
+            if (crc & 1) {
+                crc = (crc >> 1) ^ polynomial;
+            } else {
+                crc >>= 1;
+            }
+        }
+    }
+
+    return crc;
+}
 
 void setup() {
   lcd.begin(16, 2);
@@ -74,6 +94,7 @@ void loop() {
     data[11 + tmp + 1] = Serial.read();
 
     //chequeo de CRC
+    uint32_t crc_number = crc_create(data, tmp);
 
     //If dió error:
     errores++;
