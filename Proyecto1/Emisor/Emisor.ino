@@ -18,18 +18,19 @@ void setup() {
   softSerial.begin(9600);
 }
 
-byte data[609];
+byte data[614];
 
 void loop() {
    if(Serial.available() > 1){
-    Serial.readBytes(data, 8);
+    Serial.readBytes(data, 9);
     
     short tmp = (Serial.read() << 8) | (Serial.read());
 
-    data[8] = (byte)((tmp >> 8) & 0xff);
-    data[9] = (byte)(tmp & 0xff );
+    data[9] = (byte)((tmp >> 8) & 0xff);
+    data[10] = (byte)(tmp & 0xff );
 
-    Serial.readBytes(data + 10, tmp);
+    Serial.readBytes(data + 11, tmp);
+    data[11 + tmp + 1] = Serial.read();
 
     completed = false;
       while (completed == false){
