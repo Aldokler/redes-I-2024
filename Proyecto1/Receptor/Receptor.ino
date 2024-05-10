@@ -110,7 +110,24 @@ void loop() {
     data[11 + tmp + 1] = Serial.read();
 
     //chequeo de CRC
-    uint32_t crc_number = crc_create(data, tmp);
+    uint32_t new_crc_number = crc_create(data, tmp);
+
+    uint32_t crc_number_recieved = 0;
+    for (int i = 4; i < 8; i++) {
+      crc_number_recieved = (crc_number_recieved << 8) | data[i];
+    }
+
+    Serial.print("crc_number_recieved");
+    Serial.print(crc_number_recieved);
+    Serial.print("new_crc_number");
+    Serial.print(new_crc_number);
+
+    if(new_crc_number == crc_number_recieved){
+
+    }
+    else{
+
+    }
 
     
     lcd.setCursor(0, 0);
