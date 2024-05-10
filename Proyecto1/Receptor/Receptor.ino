@@ -84,11 +84,12 @@ void ceFinit() {
 }
 
 void loop() {
-  ceFinit();
   if(softSerial.available() > 1){
     lcd.setCursor(0, 0);
     //lcd.print("Recibiendo trama");
-    lcd.print("Transmisión en  ");
+    lcd.print("Transmisi");
+    lcd.write(byte(0));
+    lcd.print("n     ");
     lcd.setCursor(0, 1);
     lcd.print("curso...");
 
@@ -112,13 +113,12 @@ void loop() {
     //chequeo de CRC
     uint32_t crc_number = crc_create(data, tmp);
 
-    
     lcd.setCursor(0, 0);
     lcd.print("Estado de enlace");
     lcd.setCursor(0, 1);
     //If dió error:
-    errores++;
-    lcd.print("ruidoso...");
+    //errores++;
+    //lcd.print("ruidoso...");
 
     //Else
     lcd.write(byte(0));
