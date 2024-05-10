@@ -56,27 +56,30 @@ void loop() {
     lcd.setCursor(0, 1);
     lcd.print("curso...");
 
+    data[0] = Serial.read();
     short id = (Serial.read() << 8) | (Serial.read());
     cantidadTramas = id;
 
-    data[0] = (byte)((id >> 8) & 0xff);
-    data[1] = (byte)(id & 0xff );
+    data[1] = (byte)((id >> 8) & 0xff);
+    data[2] = (byte)(id & 0xff );
     
-    Serial.readBytes(data + 2, 6);
+    Serial.readBytes(data + 3, 6);
     
     short tmp = (Serial.read() << 8) | (Serial.read());
 
-    data[8] = (byte)((tmp >> 8) & 0xff);
-    data[9] = (byte)(tmp & 0xff );
+    data[9] = (byte)((tmp >> 8) & 0xff);
+    data[10] = (byte)(tmp & 0xff );
 
-    Serial.readBytes(data + 10, tmp);
+    Serial.readBytes(data + 11, tmp);
+    data[11 + tmp + 1] = Serial.read();
 
     //chequeo de CRC
 
     //If dió error:
     errores++;
 
-    Serial.write(data, 10 + tmp);
+    Serial.write(data, 11 + tmp + 1);
+    
 
     softSerial.write(NEXTPACKET);
     

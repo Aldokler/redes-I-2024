@@ -34,7 +34,7 @@ void loop() {
 
     completed = false;
       while (completed == false){
-        softSerial.write(data, 10 + tmp);
+        softSerial.write(data, 11 + tmp + 1);
         softSerial.flush();
 
         timer = millis();
