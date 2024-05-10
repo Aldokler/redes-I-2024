@@ -29,9 +29,20 @@ uint32_t crc_create(const uint8_t *data, short length) {
 
     return crc;
 }
+byte oTildada[] = {
+  B00010,
+  B00100,
+  B00000,
+  B01110,
+  B10001,
+  B10001,
+  B10001,
+  B01110,
+};
 
 void setup() {
   lcd.begin(16, 2);
+  lcd.createChar(0, oTildada);
 
   Serial.begin(115200); 
   softSerial.begin(9600);
@@ -45,12 +56,17 @@ void ceFinit() {
   float e = errores;
   float cT = cantidadTramas;
   float tasaErrores = e*100/cT;
+  if (errores == 0){
+    tasaErrores = 0.0;
+  }
 
   char numberToDisplay[10];
   dtostrf(tasaErrores, 5, 2, numberToDisplay);
 
   lcd.setCursor(0, 0);
-  lcd.print("Transmisión     ");
+  lcd.print("Transmisi");
+  lcd.write(byte(0));
+  lcd.print("n     ");
   lcd.setCursor(0, 1);
   lcd.print("     Finalizada!");
 
@@ -68,7 +84,7 @@ void ceFinit() {
 }
 
 void loop() {
-  ceFinit()
+  ceFinit();
   if(softSerial.available() > 1){
     lcd.setCursor(0, 0);
     //lcd.print("Recibiendo trama");
@@ -96,8 +112,17 @@ void loop() {
     //chequeo de CRC
     uint32_t crc_number = crc_create(data, tmp);
 
+    
+    lcd.setCursor(0, 0);
+    lcd.print("Estado de enlace");
+    lcd.setCursor(0, 1);
     //If dió error:
     errores++;
+    lcd.print("ruidoso...");
+
+    //Else
+    lcd.write(byte(0));
+    lcd.print("ptimo...");
 
     Serial.write(data, 11 + tmp + 1);
     
