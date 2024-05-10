@@ -35,14 +35,14 @@ uint32_t crc_create(const uint8_t *data, short length) {
 
 void setup() {
 
-  Serial.begin(115200); 
+  Serial.begin(9600); 
   softSerial.begin(9600);
 }
 
 byte data[614];
 
 void loop() {
-   if(Serial.available() > 1){
+   if(Serial.available()){
     Serial.readBytes(data, 9);
     
     short tmp = (Serial.read() << 8) | (Serial.read());
@@ -62,22 +62,23 @@ void loop() {
 
     completed = false;
       while (completed == false){
-        softSerial.write(data, 11 + tmp + 1);
-        softSerial.flush();
+          softSerial.write(data, 11 + tmp + 1);
+          softSerial.flush();
 
-        timer = millis();
-        while(softSerial.available() == 0 && millis() - timer > TIMEOUT){
-          byte code = softSerial.read();
-          if(code == NEXTPACKET){
-            completed = true;
-            break;
-          }else if (code == RESENDPACKET){
-            break;
+          timer = millis();
+          while(softSerial.available() == 0 && millis() - timer > TIMEOUT){
+            byte code = softSerial.read();
+            if(code == NEXTPACKET){
+              completed = true;
+              break;
+            }else if (code == RESENDPACKET){
+              break;
+            }
+            timer++;
           }
-          timer++;
-        }
       }
       Serial.write(NEXTPACKET);
     }
+
 
 }

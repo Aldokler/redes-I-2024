@@ -8,7 +8,7 @@ NEXTPACKET = 1
 RESENDPACKET = 2
 FINAL = 3
 
-s = serial.Serial('COM3', 115200)
+s = serial.Serial('COM3', 9600)
 
 data = []
 count = 0
@@ -35,12 +35,11 @@ with open(os.getcwd() + "/lorem.txt", "rb") as f:
         while (completed == False):
             s.write(trama)
             s.flush()
-
-        while(s.available() == 0):
-          code = s.read()
-          if(int.from_bytes(code, "big") == NEXTPACKET):
-            completed = True
-            break
+            while(s.in_waiting > 0):
+              code = s.read()
+              if(int.from_bytes(code, "big") == NEXTPACKET):
+                completed = True
+                break
 
         count+=1
 f.close
