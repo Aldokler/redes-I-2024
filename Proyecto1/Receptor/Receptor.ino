@@ -18,16 +18,46 @@ void setup() {
 }
 
 byte data[609];
+int cantidadTramas = 0;
+int errores = 0;
+
+void ceFinit() {
+  float e = errores;
+  float cT = cantidadTramas;
+  float tasaErrores = e*100/cT;
+
+  char numberToDisplay[10];
+  dtostrf(tasaErrores, 5, 2, numberToDisplay);
+
+  lcd.setCursor(0, 0);
+  lcd.print("Transmisión     ");
+  lcd.setCursor(0, 1);
+  lcd.print("     Finalizada!");
+
+  delay(3000);
+
+  while(true){
+    lcd.setCursor(0, 0);
+    lcd.print("Tasa de error   ");
+    lcd.setCursor(0, 1);
+    lcd.print("estimada: ");
+    lcd.print(numberToDisplay);
+    lcd.print("%");
+
+  }
+}
 
 void loop() {
+  ceFinit()
   if(softSerial.available() > 1){
     lcd.setCursor(0, 0);
-    lcd.print("Recibiendo trama");
-
+    //lcd.print("Recibiendo trama");
+    lcd.print("Transmisión en  ");
+    lcd.setCursor(0, 1);
+    lcd.print("curso...");
 
     short id = (Serial.read() << 8) | (Serial.read());
-
-    //Do something with id
+    cantidadTramas = id;
 
     data[0] = (byte)((id >> 8) & 0xff);
     data[1] = (byte)(id & 0xff );
@@ -43,14 +73,19 @@ void loop() {
 
     //chequeo de CRC
 
+    //If dió error:
+    errores++;
+
     Serial.write(data, 10 + tmp);
 
     softSerial.write(NEXTPACKET);
-
     
     } else {
       lcd.setCursor(0, 0);
       lcd.print(" Esperando trama");
+      
+      lcd.setCursor(0, 1);
+      lcd.print("                ");
     }
 
   }
