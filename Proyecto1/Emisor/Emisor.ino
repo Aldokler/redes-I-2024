@@ -35,7 +35,7 @@ uint32_t crc_create(const uint8_t *data, short length) {
 
 void setup() {
 
-  Serial.begin(9600); 
+  Serial.begin(115200); 
   softSerial.begin(9600);
 }
 

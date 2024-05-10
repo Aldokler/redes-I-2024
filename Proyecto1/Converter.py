@@ -8,7 +8,7 @@ NEXTPACKET = 1
 RESENDPACKET = 2
 FINAL = 3
 
-s = serial.Serial('COM2', 9600)
+s = serial.Serial('COM3', 115200)
 
 data = []
 count = 0
@@ -19,7 +19,7 @@ size = 600
 start = 1
 end = 2
 
-with open(os.getcwd() + "lorem.txt", "rb") as f:
+with open(os.getcwd() + "/lorem.txt", "rb") as f:
 
     while (byte := f.read(600)):
         trama = bytearray()
