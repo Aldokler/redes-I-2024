@@ -19,13 +19,14 @@ size = 600
 
 with open(os.getcwd() + "/lorem1.txt", "a") as f:
 
-    while(s.available() == 0):
-        head = s.read(8)
-        tmp = s.read() << 8 | s.read(1)
-        data = s.read(tmp)
+    while(True):
+        while(s.in_waiting > 0):
+            head = s.read(8)
+            tmp = s.read() << 8 | s.read(1)
+            data = s.read(tmp)
 
-        f.write(data.decode('utf8'))
+            f.write(data.decode('utf8'))
 
-        s.write(NEXTPACKET.to_bytes())
+            s.write(NEXTPACKET.to_bytes())
 
 f.close

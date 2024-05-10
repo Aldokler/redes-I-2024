@@ -95,7 +95,10 @@ void loop() {
 
     data[0] = softSerial.read();
     short id = (softSerial.read() << 8) | (softSerial.read());
-    lcd.write(id);
+    
+    char buffer[7];
+    itoa(id, buffer, 7);
+    lcd.write(buffer);
     cantidadTramas = id;
 
     data[1] = (byte)((id >> 8) & 0xff);
@@ -119,33 +122,28 @@ void loop() {
       crc_number_recieved = (crc_number_recieved << 8) | data[i];
     }
 
+  /*
     Serial.print("crc_number_recieved");
     Serial.print(crc_number_recieved);
     Serial.print("new_crc_number");
     Serial.print(new_crc_number);
-
-    if(new_crc_number == crc_number_recieved){
-
-    }
-    else{
-
-    }
-
+  */
     lcd.setCursor(0, 0);
     lcd.print("Estado de enlace");
     lcd.setCursor(0, 1);
-    //If dió error:
-    //errores++;
-    //lcd.print("ruidoso...");
 
-    //Else
-    lcd.write(byte(0));
-    lcd.print("ptimo...");
+    if(new_crc_number == crc_number_recieved){
+      lcd.write(byte(0));
+      lcd.print("ptimo...");
 
-    Serial.write(data, 11 + tmp + 1);
-    
+      Serial.write(data, 11 + tmp + 1);
+      
 
-    softSerial.write(NEXTPACKET);
+      softSerial.write(NEXTPACKET);
+    }
+    else{
+      lcd.print("ruidoso...");
+    }
     
     } else {
       lcd.setCursor(0, 0);
