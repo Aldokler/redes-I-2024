@@ -8,7 +8,7 @@ NEXTPACKET = 1
 RESENDPACKET = 2
 FINAL = 3
 
-s = serial.Serial('COM3', 115200)
+s = serial.Serial('COM2', 115200)
 
 data = []
 count = 0
