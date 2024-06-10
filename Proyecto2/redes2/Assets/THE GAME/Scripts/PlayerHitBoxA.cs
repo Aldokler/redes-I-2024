@@ -20,14 +20,13 @@ public class PlayerHitBoxA : MonoBehaviour
 
             if (result == 0)
             {
-                this.GetComponentInParent<NewBehaviourScript>().pushback(col);
+                this.GetComponentInParent<PlayerMovement>().pushback(col);
             }
             if (result == -1)
             {
                 this.GetComponentInParent<PlayerAttack>().takeCounterDamage();
             }
         }
-
     }
 
     void OnDrawGizmosSelected()

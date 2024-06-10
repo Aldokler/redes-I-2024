@@ -20,7 +20,7 @@ public class PlayerHitBoxB : MonoBehaviour
 
             if (result == 0)
             {
-                this.GetComponentInParent<NewBehaviourScript>().pushback(col);
+                this.GetComponentInParent<PlayerMovement>().pushback(col);
             }
             if (result == -1)
             {

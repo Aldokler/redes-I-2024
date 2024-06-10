@@ -12,22 +12,21 @@ public class PlayerHitBoxC : MonoBehaviour
     // Update is called once per frame
     private void OnTriggerEnter2D(Collider2D col)
     {
-
-        if ((transform.parent.CompareTag("Player") && col.gameObject.layer == 6 && col.gameObject.CompareTag("Enemy")) || (transform.parent.CompareTag("Enemy") && col.gameObject.layer == 7 && col.gameObject.CompareTag("Player"))) {
+        if ((transform.parent.CompareTag("Player") && col.gameObject.layer == 6 && col.gameObject.CompareTag("Enemy")) || (transform.parent.CompareTag("Enemy") && col.gameObject.layer == 7 && col.gameObject.CompareTag("Player"))) 
+        {
             target = col.GetComponent<PlayerAttack>();
 
             result = target.takeDamageC();
 
             if (result == 0)
             {
-                this.GetComponentInParent<NewBehaviourScript>().pushback(col);
+                this.GetComponentInParent<PlayerMovement>().pushback(col);
             }
             if (result == -1)
             {
                 this.GetComponentInParent<PlayerAttack>().takeCounterDamage();
             }
         }
-
     }
 
     void OnDrawGizmosSelected()

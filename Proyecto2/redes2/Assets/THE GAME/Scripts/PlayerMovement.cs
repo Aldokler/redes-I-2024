@@ -11,14 +11,14 @@ public class PlayerMovement : NetworkBehaviour
     private bool lookingLeft = false;
     private Rigidbody2D body;
     [SerializeField] private float speed;
+    private bool grounded;
+    public int knockback;
 
-    // Start is called before the first frame update
-    void Start()
+    public override void OnNetworkSpawn()
     {
         animator = GetComponentInChildren<Animator>();
         body = GetComponent<Rigidbody2D>();
     }
-
 
     // Update is called once per frame
     void Update()
@@ -27,6 +27,8 @@ public class PlayerMovement : NetworkBehaviour
 
         manageAnimations();
         Move();
+        if (Input.GetKey(KeyCode.Space) && grounded)
+            Jump();
     }
 
     private void Move()
@@ -41,6 +43,24 @@ public class PlayerMovement : NetworkBehaviour
         {
             gameObject.transform.localScale = new Vector3(-1, 1, 1);
         }
+
+    }
+    private void Jump()
+    {
+        body.velocity = new Vector2(body.velocity.x, speed);
+        grounded = false;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Ground")
+            grounded = true;
+    }
+
+    public void pushback(Collider2D other)
+    {
+        var direction = -transform.right;
+        body.AddForce(direction * knockback);
 
     }
 
