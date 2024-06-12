@@ -12,11 +12,16 @@ public class PlayerMovement : NetworkBehaviour
     private Rigidbody2D body;
     [SerializeField] private float speed;
     private bool grounded;
-    public int knockback;
+    [SerializeField] private int knockback;
 
     [SerializeField] private GameObject hitBoxA;
     [SerializeField] private GameObject hitBoxB;
     [SerializeField] private GameObject hitBoxC;
+
+    [SerializeField] private AudioSource sfxFire;
+    [SerializeField] private AudioSource sfxWater;
+    [SerializeField] private AudioSource sfxPlant;
+    [SerializeField] private AudioSource sfxJump;
 
     public override void OnNetworkSpawn()
     {
@@ -59,7 +64,7 @@ public class PlayerMovement : NetworkBehaviour
     {
         body.velocity = new Vector2(body.velocity.x, speed);
         grounded = false;
-        Debug.Log(OwnerClientId);
+        sfxJump.Play();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -68,7 +73,7 @@ public class PlayerMovement : NetworkBehaviour
             grounded = true;
     }
 
-    public void pushback(Collider2D other)
+    public void pushback()
     {
         var direction = -transform.right;
         body.AddForce(direction * knockback);
@@ -89,6 +94,7 @@ public class PlayerMovement : NetworkBehaviour
                 animator.SetBool("Fire", true);
                 attacking = true;
                 hitBoxA.SetActive(true);
+                sfxFire.Play();
                 StartCoroutine(fireAttackCoroutine());
             }
             if (Input.GetButtonDown("Fire2"))
@@ -96,6 +102,7 @@ public class PlayerMovement : NetworkBehaviour
                 animator.SetBool("Water", true);
                 attacking = true;
                 hitBoxB.SetActive(true);
+                sfxWater.Play();
                 StartCoroutine(waterAttackCoroutine());
             }
             if (Input.GetButtonDown("Fire3"))
@@ -103,6 +110,7 @@ public class PlayerMovement : NetworkBehaviour
                 animator.SetBool("Plant", true);
                 attacking = true;
                 hitBoxC.SetActive(true);
+                sfxPlant.Play();
                 StartCoroutine(plantAttackCoroutine());
             }
         }

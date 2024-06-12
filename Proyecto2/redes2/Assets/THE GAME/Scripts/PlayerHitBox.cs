@@ -13,6 +13,56 @@ public class PlayerHitBox : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
+        /*
+        if (transform.CompareTag("Fire") && col.gameObject.CompareTag("Plant"))
+        {
+            col.gameObject.GetComponentInParent<PlayerMovement>().pushback();
+            col.gameObject.GetComponentInParent<PlayerAttack>().health -= 1;
+        }
+        else if (transform.CompareTag("Fire") && col.gameObject.CompareTag("Water"))
+        {
+            gameObject.GetComponentInParent<PlayerMovement>().pushback();
+            gameObject.GetComponentInParent<PlayerAttack>().health += 1;
+        }
+        else if (transform.CompareTag("Fire") && col.gameObject.CompareTag("Fire"))
+        {
+            col.gameObject.GetComponentInParent<PlayerMovement>().pushback();
+            gameObject.GetComponentInParent<PlayerMovement>().pushback();
+        }
+
+        else if (transform.CompareTag("Water") && col.gameObject.CompareTag("Fire"))
+        {
+            col.gameObject.GetComponentInParent<PlayerMovement>().pushback();
+            col.gameObject.GetComponentInParent<PlayerAttack>().health -= 1;
+        }
+        else if (transform.CompareTag("Water") && col.gameObject.CompareTag("Plant"))
+        {
+            gameObject.GetComponentInParent<PlayerMovement>().pushback();
+            gameObject.GetComponentInParent<PlayerAttack>().health += 1;
+        }
+        else if (transform.CompareTag("Water") && col.gameObject.CompareTag("Water"))
+        {
+            col.gameObject.GetComponentInParent<PlayerMovement>().pushback();
+            gameObject.GetComponentInParent<PlayerMovement>().pushback();
+        }
+
+        else if (transform.CompareTag("Plant") && col.gameObject.CompareTag("Water"))
+        {
+            col.gameObject.GetComponentInParent<PlayerMovement>().pushback();
+            col.gameObject.GetComponentInParent<PlayerAttack>().health -= 1;
+        }
+        else if (transform.CompareTag("Plant") && col.gameObject.CompareTag("Fire"))
+        {
+            gameObject.GetComponentInParent<PlayerMovement>().pushback();
+            gameObject.GetComponentInParent<PlayerAttack>().health += 1;
+        }
+        else if (transform.CompareTag("Plant") && col.gameObject.CompareTag("Plant"))
+        {
+            col.gameObject.GetComponentInParent<PlayerMovement>().pushback();
+            gameObject.GetComponentInParent<PlayerMovement>().pushback();
+        }
+        */
+
         if ((transform.parent.CompareTag("Player") && col.gameObject.layer == 6 && col.gameObject.CompareTag("Enemy")) || (transform.parent.CompareTag("Enemy") && col.gameObject.layer == 7 && col.gameObject.CompareTag("Player")))
         {
             target = col.GetComponent<PlayerAttack>();
@@ -32,11 +82,11 @@ public class PlayerHitBox : MonoBehaviour
 
             if (result == 0)
             {
-                this.GetComponentInParent<PlayerMovement>().pushback(col);
+                gameObject.GetComponentInParent<PlayerMovement>().pushback();
             }
             if (result == -1)
             {
-                this.GetComponentInParent<PlayerAttack>().takeCounterDamage();
+                gameObject.GetComponentInParent<PlayerAttack>().takeCounterDamage();
             }
         }
     }
