@@ -20,7 +20,7 @@ public class PlayerAttack : NetworkBehaviour
     CircleCollider2D col = null;
     public float duration;
     private float durationT;
-    public int health;
+    public NetworkVariable<int> health = new NetworkVariable<int>(10);
 
     // Update is called once per frame
     void Update()
@@ -103,7 +103,12 @@ public class PlayerAttack : NetworkBehaviour
         else {
 
             Debug.Log("Took dmg A");
-            health -= 1;
+            Debug.Log(health.Value);
+            health.Value -= 1;
+            if (health.Value == 0)
+            {
+                NetworkObject.Despawn();
+            }
             return 1;
         }
     }
@@ -126,7 +131,12 @@ public class PlayerAttack : NetworkBehaviour
         {
 
             Debug.Log("Took dmg B");
-            health -= 1;
+            Debug.Log(health.Value);
+            health.Value -= 1;
+            if (health.Value == 0)
+            {
+                NetworkObject.Despawn();
+            }
             return 1;
         }
     }
@@ -149,19 +159,24 @@ public class PlayerAttack : NetworkBehaviour
         {
 
             Debug.Log("Took dmg C");
-            health -= 1;
+            Debug.Log(health.Value);
+            health.Value -= 1;
+            if (health.Value == 0)
+            {
+                NetworkObject.Despawn();
+            }
             return 1;
         }
     }
 
 
     public void takeCounterDamage() {
-        health -= 1;
+        health.Value -= 1;
         Debug.Log("took counter dmg");
     }
 
     public int getHealth() {
-        return health;
+        return health.Value;
     }
 
 

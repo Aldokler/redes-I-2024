@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Enemy
   - Ground
+  - Fire
+  - Water
+  - Plant
   layers:
   - Default
   - TransparentFX
