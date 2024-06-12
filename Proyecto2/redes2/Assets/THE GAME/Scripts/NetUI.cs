@@ -7,6 +7,7 @@ using Unity.Netcode.Transports.UTP;
 using TMPro;
 using System.Net;
 using System.Net.Sockets;
+using UnityEngine.SceneManagement;
 
 public class NetworkManagerUI : MonoBehaviour
 {
@@ -67,4 +68,9 @@ public class NetworkManagerUI : MonoBehaviour
         transport = NetworkManager.Singleton.GetComponent<UnityTransport>();
         transport.ConnectionData.Address = ipAddress;
     }
+    public void goToScene(int sceneID)
+    {
+        SceneManager.LoadScene(sceneID);
+    }
+
 }
