@@ -5,13 +5,11 @@ using UnityEngine;
 
 public class PlayerAttack : NetworkBehaviour
 {
-
     public float timeBtwAttack;
     public float startTimeBtwAttack;
 
     public float attackRange;
     public int damage;
-
    
     public bool AttackingA = false;
     public bool AttackingB = false;
@@ -57,18 +55,21 @@ public class PlayerAttack : NetworkBehaviour
                 if (Input.GetKey(atkA)) {
                     col = transform.Find("AtkHitboxA").gameObject.GetComponent<CircleCollider2D>();
                     AttackingA = true;
+                    Debug.Log("Faiya");
 
-
-                }else if (Input.GetKey(atkB))
+                }
+                else if (Input.GetKey(atkB))
                 {
                     col = transform.Find("AtkHitboxB").gameObject.GetComponent<CircleCollider2D>();
                     AttackingB = true;
+                    Debug.Log("Wata");
 
-
-                }else if (Input.GetKey(atkC))
+                }
+                else if (Input.GetKey(atkC))
                 {
                     col = transform.Find("AtkHitboxC").gameObject.GetComponent<CircleCollider2D>();
                     AttackingC = true;
+                    Debug.Log("Leaf");
                 }
 
                 if (col.enabled == false) { 
