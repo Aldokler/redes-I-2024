@@ -6,13 +6,13 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/THE GAME/Scenes/Main.unity
-    guid: 53180aa93da283f4290504547dc9b18e
-  - enabled: 1
     path: Assets/THE GAME/Scenes/menu.unity
     guid: 544e60ddc9273e44eb5ae1e1addbab0f
   - enabled: 1
-    path: Assets/THE GAME/Scenes/game.unity
+    path: Assets/THE GAME/Scenes/Main.unity
+    guid: 53180aa93da283f4290504547dc9b18e
+  - enabled: 1
+    path: Assets/THE GAME/Scenes/screens.unity
     guid: 15a2e61d2f8624b4eb5281393186308c
   - enabled: 0
     path: Assets/THE GAME/Scenes/Bootstrap.unity

@@ -23,10 +23,7 @@ public class NetworkManagerUI : MonoBehaviour
 
     private void Awake()
     {
-        //Lamda expression / Delegate
-        Btn_Server.onClick.AddListener(() => {
-            NetworkManager.Singleton.StartServer();
-        });
+        
 
         //Lamda expression / Delegate
         Btn_Host.onClick.AddListener(() => {
