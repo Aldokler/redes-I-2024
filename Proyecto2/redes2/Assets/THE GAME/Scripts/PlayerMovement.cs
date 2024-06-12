@@ -14,10 +14,20 @@ public class PlayerMovement : NetworkBehaviour
     private bool grounded;
     public int knockback;
 
+    [SerializeField] private GameObject hitBoxA;
+    [SerializeField] private GameObject hitBoxB;
+    [SerializeField] private GameObject hitBoxC;
+
     public override void OnNetworkSpawn()
     {
         animator = GetComponentInChildren<Animator>();
         body = GetComponent<Rigidbody2D>();
+
+        if (OwnerClientId == 1)
+        {
+            gameObject.tag = "Enemy";
+            gameObject.layer = 6;
+        }
     }
 
     // Update is called once per frame
@@ -49,6 +59,7 @@ public class PlayerMovement : NetworkBehaviour
     {
         body.velocity = new Vector2(body.velocity.x, speed);
         grounded = false;
+        Debug.Log(OwnerClientId);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -77,18 +88,21 @@ public class PlayerMovement : NetworkBehaviour
             {
                 animator.SetBool("Fire", true);
                 attacking = true;
+                hitBoxA.SetActive(true);
                 StartCoroutine(fireAttackCoroutine());
             }
             if (Input.GetButtonDown("Fire2"))
             {
                 animator.SetBool("Water", true);
                 attacking = true;
+                hitBoxB.SetActive(true);
                 StartCoroutine(waterAttackCoroutine());
             }
             if (Input.GetButtonDown("Fire3"))
             {
                 animator.SetBool("Plant", true);
                 attacking = true;
+                hitBoxC.SetActive(true);
                 StartCoroutine(plantAttackCoroutine());
             }
         }
@@ -108,6 +122,7 @@ public class PlayerMovement : NetworkBehaviour
         yield return new WaitForSeconds(0.5f);
         animator.SetBool("Fire", false);
         attacking = false;
+        hitBoxA.SetActive(false);
     }
 
     IEnumerator waterAttackCoroutine()
@@ -115,6 +130,7 @@ public class PlayerMovement : NetworkBehaviour
         yield return new WaitForSeconds(0.5f);
         animator.SetBool("Water", false);
         attacking = false;
+        hitBoxB.SetActive(false);
     }
 
     IEnumerator plantAttackCoroutine()
@@ -122,5 +138,6 @@ public class PlayerMovement : NetworkBehaviour
         yield return new WaitForSeconds(0.5f);
         animator.SetBool("Plant", false);
         attacking = false;
+        hitBoxC.SetActive(false);
     }
 }
